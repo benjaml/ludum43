@@ -10,6 +10,7 @@ public class orbitPlanete : MonoBehaviour
     private float radius;                   //calculated radius from collider
     public SphereCollider planet;           //collider for planet
     public CharacterController controller;
+    Collider[] colliders;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class orbitPlanete : MonoBehaviour
         //starting position at north pole
         transform.position = centre.position + new Vector3(0, radius + height, 0);
         controller = GetComponent<CharacterController>();
+
     }
 
     void Update()
@@ -29,7 +31,6 @@ public class orbitPlanete : MonoBehaviour
         Vector3 move = transform.forward * inputMag;
         float inputMag2 = Input.GetAxis("Horizontal") * translationSpeed * Time.deltaTime;
         move += transform.right * inputMag2;
-        translationSpeed += move.magnitude * 0.01f;
         controller.Move(move);
         //snap position to radius + height (could also use raycasts)
         Vector3 targetPosition = transform.position - centre.position;
@@ -46,5 +47,10 @@ public class orbitPlanete : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
         //apply heading rotation
         transform.rotation = headingDelta * transform.rotation;
+        colliders = Physics.OverlapSphere(transform.position, radius);
+        foreach (Collider col in colliders)
+            if (col.GetComponent<element>())
+                col.GetComponent<element>().updatePosition();
     }
+    
 }
