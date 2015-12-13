@@ -27,7 +27,9 @@ public class orbitPlanete : MonoBehaviour
         //translate based on input     
         float inputMag = Input.GetAxis("Vertical") * translationSpeed * Time.deltaTime;
         Vector3 move = transform.forward * inputMag;
-        translationSpeed += move.magnitude * 0.1f;
+        float inputMag2 = Input.GetAxis("Horizontal") * translationSpeed * Time.deltaTime;
+        move += transform.right * inputMag2;
+        translationSpeed += move.magnitude * 0.01f;
         controller.Move(move);
         //snap position to radius + height (could also use raycasts)
         Vector3 targetPosition = transform.position - centre.position;
