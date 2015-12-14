@@ -24,5 +24,7 @@ public class planeteScript : MonoBehaviour {
             grow = false;
             GetComponent<Generation>().stopGenerate();
         }
+        if (!grow && radius < 10f)
+            Application.LoadLevel("Lose");
 	}
 }

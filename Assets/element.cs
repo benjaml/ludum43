@@ -10,7 +10,9 @@ public class element : MonoBehaviour {
         planete = GameObject.FindGameObjectWithTag("planete").GetComponent<planeteScript>();
         positionFromThePlanet = planete.transform.position - transform.position;
         positionFromThePlanet.Normalize();
+        positionFromThePlanet = -positionFromThePlanet;
         InvokeRepeating("updatePosition", 1f, 3f);
+        Destroy(GetComponent<)
 	}
 	
 	// Update is called once per frame

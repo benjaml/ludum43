@@ -36,7 +36,7 @@ public class orbitPlanete : MonoBehaviour
         Vector3 targetPosition = transform.position - centre.position;
         float ratio = (radius + height) / targetPosition.magnitude;
         targetPosition.Scale(new Vector3(ratio, ratio, ratio));
-        transform.position = targetPosition + centre.position;
+        transform.position = Vector3.Lerp(transform.position,targetPosition + centre.position,0.1f);
         //calculate planet surface normal                      
         Vector3 surfaceNormal = transform.position - centre.position;
         surfaceNormal.Normalize();

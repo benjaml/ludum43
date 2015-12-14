@@ -3,13 +3,29 @@ using System.Collections;
 
 public class ship : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    bool canActivate;
+    public GameObject image;
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "Player")
+        {
+            canActivate = true;
+            image.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.tag == "Player")
+        {
+            canActivate = false;
+            image.SetActive(false);
+        }
+    }
+    void Update()
+    {
+        if (canActivate && Input.GetKeyDown(KeyCode.E))
+            Application.LoadLevel("Win");
+    }
 }
