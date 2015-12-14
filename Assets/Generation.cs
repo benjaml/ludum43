@@ -16,15 +16,17 @@ public enum prefabs
         Roche6,
         Roche7,
         Roche8,
-    Roche9,
-    cactus1,
-    cactus2,
-    cactus3,
-    grass1,
-    grass2,
-    grass3,
-    grass4,
-    tour1,
+        Roche9,
+        cactus1,
+        cactus2,
+        cactus3,
+        grass1,
+        grass2,
+        grass3,
+        grass4,
+        tour1,
+        tour2,
+        tour3,
 };
 public class Generation : MonoBehaviour {
 
@@ -56,6 +58,8 @@ public class Generation : MonoBehaviour {
     public GameObject grassPrefab3;
     public GameObject grassPrefab4;
     public GameObject tourPrefab1;
+    public GameObject tourPrefab2;
+    public GameObject tourPrefab3;
 
     // private
     Vector3 directionSpawn;
@@ -207,6 +211,18 @@ public class Generation : MonoBehaviour {
                 once = true;
                 bigBoys = true;
                 break;
+            case prefabs.tour2:
+                pref = tourPrefab2;
+                radius = 5f;
+                once = true;
+                bigBoys = true;
+                break;
+            case prefabs.tour3:
+                pref = tourPrefab3;
+                radius = 6f;
+                once = true;
+                bigBoys = true;
+                break;
         }
 
         for(int test = 0;test< maxTry;++test)
@@ -265,7 +281,7 @@ public class Generation : MonoBehaviour {
     {
         foreach (Collider col in cols)
         {
-            if (col.transform.tag == "Player")
+            if (col.transform.tag == "Player" || col.transform.tag == "ship")
                 return true;
         }
         return false;

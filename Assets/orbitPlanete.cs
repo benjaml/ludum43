@@ -11,9 +11,11 @@ public class orbitPlanete : MonoBehaviour
     public SphereCollider planet;           //collider for planet
     public CharacterController controller;
     Collider[] colliders;
+    bool isCurrentRunning = false;
 
     void Start()
     {
+
         //consider scale applied to planet transform (assuming uniform, just pick one)
         radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
@@ -47,10 +49,19 @@ public class orbitPlanete : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(transform.up, surfaceNormal) * transform.rotation;
         //apply heading rotation
         transform.rotation = headingDelta * transform.rotation;
+        /*if(!isCurrentRunning)
+            StartCoroutine(updateProps());*/
+    }
+
+    IEnumerator updateProps()
+    {
+        isCurrentRunning = true;
         colliders = Physics.OverlapSphere(transform.position, radius);
         foreach (Collider col in colliders)
             if (col.GetComponent<element>())
                 col.GetComponent<element>().updatePosition();
+        yield return null;
+        isCurrentRunning = false;
     }
     
 }
